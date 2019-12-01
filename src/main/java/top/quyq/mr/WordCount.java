@@ -10,8 +10,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -23,6 +23,7 @@ import java.io.IOException;
 
 public class WordCount {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+
         //配置信息
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
@@ -38,6 +39,10 @@ public class WordCount {
         //设置最终输出类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
+        //设置inputFormat,如果不设置默认使用TextInputFormat.class
+        job.setInputFormatClass(CombineTextInputFormat.class);
+        //虚拟存储切片最大值设为4M
+        CombineTextInputFormat.setMaxInputSplitSize(job,4194304);
         //设置文件输入，输出位置
         FileInputFormat.setInputPaths(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));

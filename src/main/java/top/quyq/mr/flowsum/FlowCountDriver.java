@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  * @author Quyq
- * @TODO
+ * 序列化和发序列化Bean实例
  **/
 
 public class FlowCountDriver {

@@ -4,7 +4,7 @@
  * CreationDate: 2019/11/27
  * Author:       渠永泉
  */
-package top.quyq.mr;
+package top.quyq.mr.def;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;

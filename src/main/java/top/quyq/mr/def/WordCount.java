@@ -4,14 +4,13 @@
  * CreationDate: 2019/11/27
  * Author:       渠永泉
  */
-package top.quyq.mr;
+package top.quyq.mr.def;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -19,6 +18,7 @@ import java.io.IOException;
 
 /**
  * @author Quyq
+ *  框架默认的TextInputFormat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask
  **/
 
 public class WordCount {
@@ -39,10 +39,7 @@ public class WordCount {
         //设置最终输出类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        //设置inputFormat,如果不设置默认使用TextInputFormat.class
-        job.setInputFormatClass(CombineTextInputFormat.class);
-        //虚拟存储切片最大值设为4M
-        CombineTextInputFormat.setMaxInputSplitSize(job,4194304);
+
         //设置文件输入，输出位置
         FileInputFormat.setInputPaths(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));

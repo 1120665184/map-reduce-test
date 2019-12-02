@@ -54,7 +54,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>top.quyq.mr.WordCount</mainClass>
+                            <mainClass>top.quyq.mr.def.WordCount</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
